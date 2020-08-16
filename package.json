@@ -1,8 +1,10 @@
 {
 	"scripts": {
-		"test": "ava"
+		"test": "nyc ava",
+		"watch:test": "ava --watch"
 	},
 	"devDependencies": {
-		"ava": "^3.11.1"
+		"ava": "^3.11.1",
+		"nyc": "^15.1.0"
 	}
 }
