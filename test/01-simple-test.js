@@ -4,18 +4,16 @@
 // The input string will only consist of lower case letters and/or spaces.
 const test = require('ava');
 
-const vowels = ['a', 'e', 'i', 'o', 'u']
+const vowels = 'aeiou';
 
 function getCount(str) {
-  let vowelsCount = 0;
-  str.split('').forEach(char => {
-    if(vowels.findIndex(vowel => vowel === char) >= 0){
-      vowelsCount ++;
-    }
-  })
-  return vowelsCount;
+  return str.toLowerCase().split('') .filter(char => vowels.includes(char)).length
 }
 
-test('foo', t => {
+test('word has 5 vowels', t => {
   t.is(getCount("abracadabra"), 5);
+});
+
+test('getCount is case insensitive', t => {
+  t.is(getCount("abrAcadAbra"), 5);
 });
