@@ -28,10 +28,9 @@ function likes(names) {
   let message = names[0] ? names[0] : 'no one'
   if (names.length === 2) {
     message = names[0] + ' and ' + names[1]
-  } else if (names.length === 3) {
-    message = names[0] + ', ' + names[1] + ' and ' + names[2]
-  } else if (names.length > 3) {
-    message = names[0] + ', ' + names[1] + ' and ' + (names.length - 2) + ' others'
+  } else if (names.length > 2) {
+    names[2] = names.length > 3 ? (names.length - 2) + ' others' : names[2]
+    message = `${names[0]}, ${names[1]} and ${names[2]}`
   }
   return message += names.length > 1 ? ' like this' : ' likes this'
 }
