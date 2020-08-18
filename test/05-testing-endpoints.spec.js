@@ -16,12 +16,12 @@ const test = require('ava');
 const request = require('supertest');
 const express = require('express');
 
-const likesArray = [
-  [],
-  ["Peter"],
-  ["Jacob", "Alex"],
-  ["Max", "John", "Mark"],
-  ["Alex", "Jacob", "Mark", "Max"]
+const likesAndExpectedMessages = [
+  { likes: [], message: 'no one likes this' },
+  { likes: ["Peter"], message: 'Peter likes this' },
+  { likes: ["Jacob", "Alex"], message: 'Jacob and Alex like this' },
+  { likes: ["Max", "John", "Mark"], message: 'Max, John and Mark like this' },
+  { likes: ["Alex", "Jacob", "Mark", "Max"], message: 'Alex, Jacob and 2 others like this' }
 ]
 
 function likes(names) {
@@ -39,42 +39,14 @@ function setup() {
   const app = express();
   app.get('/testing-endpoints', (req, res) => {
     const index = req.query.id;
-    res.send({ likes: likes(likesArray[index]) })
+    res.send({ likes: likes(likesAndExpectedMessages[index].likes) })
   })
   return app;
 }
 
-test('If nobody likes, no one likes this', async t => {
-  let response = await request(setup())
-    .get("/testing-endpoints?id=0")
-    .send();
-  t.deepEqual(response.body.likes, 'no one likes this');
-});
-
-test('["Peter"] => must be "Peter likes this"', async t => {
-  let response = await request(setup())
-    .get("/testing-endpoints?id=1")
-    .send();
-  t.deepEqual(response.body.likes, 'Peter likes this');
-});
-
-test('["Jacob", "Alex"] => must be "Jacob and Alex like this"', async t => {
-  let response = await request(setup())
-    .get("/testing-endpoints?id=2")
-    .send();
-  t.deepEqual(response.body.likes, 'Jacob and Alex like this');
-});
-
-test('["Max", "John", "Mark"] => must be "Max, John and Mark like this"', async t => {
-  let response = await request(setup())
-    .get("/testing-endpoints?id=3")
-    .send();
-  t.deepEqual(response.body.likes, 'Max, John and Mark like this');
-});
-
-test('["Alex", "Jacob", "Mark", "Max"] => must be "Alex, Jacob and 2 others like this"', async t => {
-  let response = await request(setup())
-    .get("/testing-endpoints?id=4")
-    .send();
-  t.deepEqual(response.body.likes, 'Alex, Jacob and 2 others like this');
-});
+likesAndExpectedMessages.forEach( (likesAndMessage, index) => {
+   test(likesAndMessage.message, async t => {
+    let response = await request(setup()).get(`/testing-endpoints?id=${index}`).send();
+    t.deepEqual(response.body.likes, likesAndMessage.message);   
+   }) 
+})
