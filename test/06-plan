@@ -1,0 +1,64 @@
+// This time we want to write calculations using functions and get the results. Let's have a look at some examples:
+// seven(times(five())); // must return 35
+// four(plus(nine())); // must return 13
+// eight(minus(three())); // must return 5
+// six(dividedBy(two())); // must return 3
+// Requirements:
+// There must be a function for each number from 0 ("zero") to 9 ("nine")
+// There must be a function for each of the following mathematical operations: plus, minus, times, dividedBy (divided_by in Ruby and Python)
+// Each calculation consist of exactly one operation and two numbers
+// The most outer function represents the left operand, the most inner function represents the right operand
+// Division should be integer division. For example, this should return 2, not 2.666666...:
+// eight(dividedBy(three()));
+
+// const test = require('ava');
+//
+// function zero(callback) { return callback ? performOperation(0, callback) : 0 }
+// function one(callback) { return callback ? performOperation(1, callback) : 1 }
+// function two(callback) { return callback ? performOperation(2, callback) : 2 }
+// function three(callback) { return callback ? performOperation(3, callback) : 3 }
+// function four(callback) { return callback ? performOperation(4, callback) : 4 }
+// function five(callback) { return callback ? performOperation(5, callback) : 5 }
+// function six(callback) { return callback ? performOperation(6, callback) : 6 }
+// function seven(callback) { return callback ? performOperation(7, callback) : 7 }
+// function eight(callback) { return callback ? performOperation(8, callback) : 8 }
+// function nine(callback) { return callback ? performOperation(9, callback) : 9 }
+//
+// function plus() {
+//     return { op: '+', number: arguments[0] }
+// }
+// function minus() {
+//     return { op: '-', number: arguments[0] }
+// }
+// function times() {
+//     return { op: '*', number: arguments[0] }
+// }
+// function dividedBy() {
+//     return { op: '/', number: arguments[0] }
+// }
+//
+// function performOperation(number, operation){
+//     switch(operation.op){
+//         case "*":
+//             return number * operation.number
+//         case "+":
+//             return number + operation.number
+//         case "-":
+//             return number - operation.number
+//         case "/":
+//             return Math.floor(number / operation.number)
+//     }
+// }
+//
+// test('7 times 5 is 35', t => {
+//     t.is(seven(times(five())), 35)
+// })
+//
+// test('4 + 9 = 13', t => {
+//     t.is(four(plus(nine())), 13)
+// })
+//
+// test('8 - 3 = 5', t => {
+//     t.is(four(plus(nine())), 13)
+// })
+//
